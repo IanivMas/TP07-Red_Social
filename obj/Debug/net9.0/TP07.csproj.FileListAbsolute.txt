@@ -1,0 +1,8 @@
+C:\Users\49836040\TP07\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\Users\49836040\TP07\obj\Debug\net9.0\TP07.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\49836040\TP07\obj\Debug\net9.0\TP07.AssemblyInfoInputs.cache
+C:\Users\49836040\TP07\obj\Debug\net9.0\TP07.AssemblyInfo.cs
+C:\Users\49836040\TP07\obj\Debug\net9.0\TP07.csproj.CoreCompileInputs.cache
+C:\Users\49836040\TP07\obj\Debug\net9.0\TP07.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\49836040\TP07\obj\Debug\net9.0\TP07.RazorAssemblyInfo.cache
+C:\Users\49836040\TP07\obj\Debug\net9.0\TP07.RazorAssemblyInfo.cs
