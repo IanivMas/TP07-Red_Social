@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Dapper;
 using TP07.Models;
 
 namespace TP07.Controllers;
@@ -36,6 +38,7 @@ public IActionResult InicioSesion()
 [HttpPost]
 public IActionResult Registro(string NombreUsuario, int Id, string Contraseña, string Nombre, string Apellido)
 {
+    BD bd = new BD();
     Usuario u = new Usuario(Nombre, Apellido, NombreUsuario, Contraseña,Id);
     if (bd.buscarPorNombreUsuario(u.NombreUsuario) == null)
     {
@@ -52,15 +55,15 @@ public IActionResult Registro(string NombreUsuario, int Id, string Contraseña, 
     [HttpPost]
 public IActionResult InicioSesion(string NombreUsuario, string Contraseña)
 {
+    BD bd = new BD();
     Usuario usuarioEncontrado = bd.encontrarUsuario(NombreUsuario, Contraseña);
-
     if (usuarioEncontrado == null)
     {
         ViewBag.Error = "Usuario o contraseña incorrectos.";
         return View();
     }
-    HttpContext.Session.SetString("NombreUsuario", usuarioEncontrado.usuario);
-     HttpContext.Session.SetString("Contraseña", usuarioEncontrado.usuario);
+    HttpContext.Session.SetString("NombreUsuario", usuarioEncontrado.NombreUsuario);
+     HttpContext.Session.SetString("Contraseña", usuarioEncontrado.Contraseña);
 
    
     return RedirectToAction("PaginaPrincipal", "Home");
@@ -68,7 +71,7 @@ public IActionResult InicioSesion(string NombreUsuario, string Contraseña)
 
     public IActionResult PaginaPrincipal()
     {
-        if (string.IsNullOrEmpty(HttpContext.Session.GetString("usuario")))
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString("NombreUsuario")))
         {
             
             return RedirectToAction("InicioSesion", "Home");

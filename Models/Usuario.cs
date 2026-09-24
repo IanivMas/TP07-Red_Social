@@ -1,4 +1,4 @@
-namespace TP05.Models;
+namespace TP07.Models;
 public class Usuario
 {
     public string Nombre {get; set;}
@@ -9,11 +9,11 @@ public class Usuario
     
     public Usuario (string Nombre, string Apellido, string NombreUsuario, string Contraseña, int Id)
     {
-        this.Nombre = Nombre;
-        this.Apellido = Apellido;
-        this.NombreUsuario = NombreUsuario;
-        this.Contraseña = Contraseña;
-        this.Id = Id;
+        this.Nombre = nombre;
+        this.Apellido = apellido;
+        this.NombreUsuario = nombreUsuario;
+        this.Contraseña = contraseña;
+        this.Id = id;
     }
     public Usuario ()
     {
