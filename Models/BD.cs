@@ -7,7 +7,7 @@ public class BD
     public void agregarUsuario (Usuario u)
     {
         Console.WriteLine(u.NombreUsuario);
-        string query = "INSERT INTO Usuario (Nombre,Apellido,NombreUsuario,Contraseña,Id) VALUES (@Nombre,@Apellido,@NombreUsuario,@Contraseña,@Id)";
+        string query = "INSERT INTO Usuarios (Nombre,Apellido,NombreUsuario,Contraseña,Id) VALUES (@Nombre,@Apellido,@NombreUsuario,@Contraseña,@Id)";
         using (SqlConnection connection = new SqlConnection(conexion))
         {
             connection.Execute(query, new {nombre = u.Nombre, apellido = u.Apellido, usuario = u.NombreUsuario, clave = u.Contraseña, tipo = u.Id});
@@ -16,7 +16,7 @@ public class BD
 
     public Usuario encontrarUsuario(string NombreUsuario, string Contraseña)
     {
-        string query = "SELECT id, nombre, apellido, usuario, clave, tipo FROM Usuario WHERE NombreUsuario = @NombreUsuario AND Contraseña = @Contraseña";
+        string query = "SELECT id, nombre, apellido, usuario, clave, tipo FROM Usuarios WHERE NombreUsuario = @NombreUsuario AND Contraseña = @Contraseña";
         using (SqlConnection connection = new SqlConnection(conexion))
         {
             return connection.QueryFirstOrDefault<Usuario>(query, new { NombreUsuario = NombreUsuario, Contraseña = Contraseña });
@@ -25,11 +25,22 @@ public class BD
 
     public Usuario buscarPorNombreUsuario(string NombreUsuario)
     {
-        string query = "SELECT Nombre, apellido, NombreUsuario, Contraseña, Id FROM Usuario WHERE NombreUsuario = @NombreUsuario";
+        string query = "SELECT Nombre, apellido, NombreUsuario, Contraseña, Id FROM Usuarios WHERE NombreUsuario = @NombreUsuario";
         using (SqlConnection connection = new SqlConnection(conexion))
         {
             return connection.QueryFirstOrDefault<Usuario>(query, new { NombreUsuario = NombreUsuario });
         }
     }
-
+    public Publicacion agregarPublicacion (Publicacion p)
+    {
+        string query = "INSERT INTO Publicaciones (IdUsuario, Titulo, Descripcion, Imagen, FechaPublicacion) VALUES (@IdUsuario, @Titulo, @Descripcion, @Imagen, @FechaPublicacion)";
+        using (SqlConnection connection = new SqlConnection(conexion))
+        {
+            connection.Execute(query, new {IdUsuario = p.IdUsuario, Titulo = p.Titulo, Descripcion = p.Descripcion, Imagen = p.Imagen, FechaPublicacion = p.FechaPublicacion});
+        }
+    }
+    public List<Publicacion> traerPublicaciones (int limite)
+    {
+        
+    }
 }
