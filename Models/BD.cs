@@ -31,7 +31,7 @@ public class BD
             return connection.QueryFirstOrDefault<Usuario>(query, new { NombreUsuario = NombreUsuario });
         }
     }
-    public Publicacion agregarPublicacion (Publicacion p)
+    public void agregarPublicacion (Publicacion p)
     {
         string query = "INSERT INTO Publicaciones (IdUsuario, Titulo, Descripcion, Imagen, FechaPublicacion) VALUES (@IdUsuario, @Titulo, @Descripcion, @Imagen, @FechaPublicacion)";
         using (SqlConnection connection = new SqlConnection(conexion))
@@ -39,8 +39,32 @@ public class BD
             connection.Execute(query, new {IdUsuario = p.IdUsuario, Titulo = p.Titulo, Descripcion = p.Descripcion, Imagen = p.Imagen, FechaPublicacion = p.FechaPublicacion});
         }
     }
-    public List<Publicacion> traerPublicaciones (int limite)
+    public List<Publicacion> traerPublicaciones (int limite, DateTime reciente)
     {
-        
+        List<Publicacion> Publicaciones = new List<Publicacion>();
+        using (SqlConnection connection = new SqlConnection (conexion))
+        {
+            string query = "SELECT TOP (@limite) * FROM Publicaciones WHERE FechaPublicacion <= @reciente ORDER BY FechaPublicacion DESC";
+            Publicaciones = connection.Query<Publicacion>(query, new { limite = limite, reciente = reciente }).ToList();
+        }
+        return Publicaciones;
+    }
+    public void agregarComentario (Comentario c)
+    {
+        string query = "INSERT INTO Comentarios (IdUsuarioComenta, IdPublicacion, Texto, FechaComentario) VALUES (@IdUsuarioComenta, @IdPublicacion, @Texto, @FechaComentario)";
+        using (SqlConnection connection = new SqlConnection(conexion))
+        {
+            connection.Execute(query, new {IdUsuarioComenta = c.IdUsuarioComenta, IdPublicacion = c.IdPublicacion, Texto = c.Texto, FechaComentario = c.FechaComentario});
+        }
+    }
+    public List<Comentario> traerComentarios (int IdPublicacion)
+    {
+        List<Comentario> Comentarios = new List<Comentario>();
+        using (SqlConnection connection = new SqlConnection (conexion))
+        {
+            string query = "SELECT * FROM Comentarios WHERE IdPublicacion";
+            Comentarios = connection.Query<Comentario>(query).ToList();
+        }
+        return Comentarios;
     }
 }

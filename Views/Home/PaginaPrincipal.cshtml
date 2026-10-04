@@ -6,3 +6,19 @@
 <form action="@Url.Action("CerrarSesion", "Home")" method="post" class="mt-4">
     <input type="submit" class="btn btn-danger" name="cerrarSesion" value="Cerrar sesión" />
 </form>
+<h1>Bienvenido, @ViewBag.NombreUsuario!</h1>
+<h2>Publicaciones Recientes</h2>
+@foreach (var publicacion in ViewBag.Publicaciones)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">@publicacion.Titulo</h5>
+            <p class="card-text">@publicacion.Descripcion</p>
+            @if (!string.IsNullOrEmpty(publicacion.Imagen))
+            {
+                <img src="@publicacion.Imagen" alt="Imagen de la publicación" class="img-fluid" />
+            }
+            <p class="card-text"><small class="text-muted">Publicado el @publicacion.FechaPublicacion.ToString("dd/MM/yyyy HH:mm")</small></p>
+        </div>
+    </div>
+}

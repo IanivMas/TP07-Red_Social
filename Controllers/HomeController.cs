@@ -71,16 +71,16 @@ public IActionResult InicioSesion(string NombreUsuario, string Contraseña)
 
     public IActionResult PaginaPrincipal()
     {
+        BD bd = new BD();
         if (string.IsNullOrEmpty(HttpContext.Session.GetString("NombreUsuario")))
         {
-            
             return RedirectToAction("InicioSesion", "Home");
         }
         ViewBag.NombreUsuario = HttpContext.Session.GetString("NombreUsuario");
         ViewBag.Contraseña = HttpContext.Session.GetString("Contraseña");
         ViewBag.Nombre = HttpContext.Session.GetString("Nombre");
         ViewBag.Apellido = HttpContext.Session.GetString("Apellido");
-
+        ViewBag.Publicaciones = bd.traerPublicaciones(10, DateTime.Now);
         return View();
         
     }
@@ -89,7 +89,15 @@ public IActionResult InicioSesion(string NombreUsuario, string Contraseña)
         HttpContext.Session.Clear();
         return RedirectToAction("InicioSesion", "Home");
     }
-
+    [HttpPost]
+    public IActionResult CrearPublicacion(int Id, int IdUsuario, string Titulo, string Descripcion, string Imagen, DateTime FechaPublicacion)
+    {
+        BD bd = new BD();
+        Publicacion p = new Publicacion(Id, IdUsuario, Titulo, Descripcion, Imagen, FechaPublicacion);
+        bd.agregarPublicacion(p);
+        return View();
+    }
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

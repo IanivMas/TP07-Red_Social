@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Crear Publicacion";
+}
+
+<div class="container mt-4" style="max-width: 720px;">
+    <h2 class="mb-4">Crear publicación</h2>
+
+    <form action="@Url.Action("CrearPublicacion", "Home")" method="post">
+        <div class="mb-3">
+            <label for="IdUsuario" class="form-label">ID de usuario</label>
+            <input type="number" class="form-control" id="IdUsuario" name="IdUsuario"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="Titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" id="Titulo" name="Titulo"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="Descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="Descripcion" name="Descripcion"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="Imagen" class="form-label">Imagen (nombre o ruta)</label>
+            <input type="text" class="form-control" id="Imagen" name="Imagen"/>
+        </div>
+
+        <div class="mb-4">
+            <label for="FechaPublicacion" class="form-label">Fecha de publicación</label>
+            <input type="datetime-local" class="form-control" id="FechaPublicacion" name="FechaPublicacion" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Publicar</button>
+    </form>
+</div>
